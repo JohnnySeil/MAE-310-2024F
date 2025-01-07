@@ -1,0 +1,38 @@
+R = 0.3;
+L = 1.0;
+
+Point(1) = {L, -L, 0};    ## Lines 4 to 10 each represent a point, and the three values enclosed inside the curly brackets are the coordinates of the points
+Point(2) = {L, L, 0};
+Point(3) = {-L, L, 0};
+Point(4) = {-L, -L, 0};
+Point(5) = {-L + R, -L, 0};
+Point(6) = {-L, -L + R, 0};
+Point(7) = {-L + Cos(Pi/4) * R, -L + Sin(Pi/4) * R, 0};
+
+Circle(1) = {5, 4, 7};         ## Lines 12 and 13 represents the formation of a circle, and the values in the curly brackets are the points that makes up the circle
+Circle(2) = {7, 4, 6};
+
+Line(3) = {6, 3};          ## Lines 15 to 19 represents a line, with the value inside the curly brackets indicating the points that corresponds to each endpoint
+Line(4) = {3, 2};
+Line(5) = {2, 1};
+Line(6) = {1, 5};
+Line(7) = {2, 7};
+
+Curve Loop(1) = {4, 7, 2, 3};  ## Lines 21 to 25 represents the grouping of a number of points, which would create a curve, and then this curve would be turned into a surface
+Plane Surface(1) = {1};         ## The number in the curly bracket for the plane surface indicates which curve loop should be transformed into a plane surface
+
+Curve Loop(2) = {7, -1, -6, -5};
+Plane Surface(2) = {2};
+
+Transfinite Line{1, 2, 3, 4, 5, 6, 7} = 3;
+
+Transfinite Surface{1};    ## Lines 29 and 30 shows that the plane surface 1 and 2 are to be meshed with a transfinite mesh
+Transfinite Surface{2};
+
+Recombine Surface{1};
+Recombine Surface{2};   ## Lines 32 and 33 shows that the mesh elements of plane surface 1 and 2 would be recombined
+
+Mesh.ElementOrder = 1;    ## Set the mesh to order 1
+Mesh.Algorithm = 8;
+
+// EOF
