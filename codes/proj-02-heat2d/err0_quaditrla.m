@@ -199,7 +199,7 @@ for ee = 1:n_el
         end
         detj = dx_dxi * dy_deta - dx_deta * dy_dxi; % determinant of Jacobi matrix
         duh_dx = 1/detj * (duh_dxi*dy_deta - duh_deta*dy_dxi);
-        duh_dy = 1/detj * (-duh_dxi*dx_deta +3 duh_deta*dx_dxi);
+        duh_dy = 1/detj * (-duh_dxi*dx_deta + duh_deta*dx_dxi);
 
         errrr0 = errrr0 + w(ll) * detj * (uh - exact(xx_l, yy_l))^2;
         errrr1 = errrr1 + w(ll) * detj * ( (uh - exact(xx_l, yy_l))^2 + (duh_dx - exact_x(xx_l, yy_l))^2 + (duh_dy - exact_y(xx_l, yy_l))^2 );
